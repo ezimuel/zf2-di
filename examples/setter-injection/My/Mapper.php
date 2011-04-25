@@ -7,7 +7,11 @@ class Mapper
     
     protected $dbAdapter = null;
     
-    public function __construct(DbAdapter $dbAdapter)
+    public function __construct()
+    {
+    }
+    
+    public function setDbAdapter(DbAdapter $dbAdapter)
     {
         $this->dbAdapter = $dbAdapter;
     }

@@ -5,11 +5,11 @@ namespace Zend\Di\Framework;
 class DefinitionProxy extends \Zend\Di\Definition
 {
     /**
-	 * @var Zend\Di\DependencyDefinition
+	 * @var Zend\Di\Definition
      */
     protected $definition = null;
     
-    public function __construct(\Zend\Di\DependencyDefinition $definition)
+    public function __construct(\Zend\Di\Definition $definition)
     {
         $this->definition = $definition;
     }
@@ -78,12 +78,31 @@ class DefinitionProxy extends \Zend\Di\Definition
     }
     
     
-    public function addTag($tag) {}
-    public function addTags(array $tags) {}
-    public function getTags() {}
-    public function hasTag($tag) {}
+    public function addTag($tag)
+    {
+        throw new \Exception('No Tags');
+    }
     
-    public function addMethodCall($name, array $args) {}
+    public function addTags(array $tags)
+    {
+        throw new \Exception('No Tags');
+    }
+    
+    public function getTags()
+    {
+        throw new \Exception('No Tags');
+    }
+    
+    public function hasTag($tag)
+    {
+        throw new \Exception('No Tags');
+    }
+    
+    public function addMethodCall($name, array $args)
+    {
+        return $this->definition->addMethodCall($name, $args);
+    }
+    
     /**
      * @return InjectibleMethods
      */
@@ -98,9 +117,24 @@ class DefinitionProxy extends \Zend\Di\Definition
             }
             $params[$cParamName] = $cParamValue;
         }
+        
+        $methods = array();
+        foreach ($this->definition->injectibleMethods as $method) {
+            $args = array();
+            foreach ($method->getArgs() as $argKey => $arg) {
+                if ($arg instanceof \Zend\Di\Reference) {
+                    $args[$argKey]['__reference'] = $arg->getServiceName();
+                } else {
+                    $args[$argKey][] = $arg;
+                }
+            }
+            $methods[] = array('name' => $method->getName(), 'args' => $args);
+        }
+        
         return array(
         	'class' => $this->definition->className,
-        	'param_map' => $this->definition->constructorParamMap,
+            'methods' => $methods,
+        	'param_map' => ($this->definition->constructorParamMap) ?: array(),
             'params' => $params
             );
     }

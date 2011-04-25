@@ -7,18 +7,25 @@ class RepositoryA
 
     protected $mapper = null;
 
-    public function __construct(Mapper $mapper)
+    public function __construct()
+    {
+    }
+    
+    public function setMapper(Mapper $mapper)
     {
         $this->mapper = $mapper;
     }
     
-    public function find($entityCriterion)
+    public function find(/* $entityCriterion */)
     {
         // so something with criterion
+        /*
         $data = $mapper->findByCriterion($entityCriterion);
         $entity = new EntityA();
         populate($entity);
         return $entity;
+        */
+        return new EntityA;
     }
     
     public function __toString()
