@@ -12,9 +12,7 @@ return array(
     
     // what inspectors to use
     'introspectors' => array(
-        'constructorInjection',
-        // 'setterInjection' => setter injection options here, not yet implemented
-        // 'interfaceInjection' => list of interfaces to manage, not yet implemented
+        'constructorInjection'
         ),
 
     // what object configurations and aliases to use

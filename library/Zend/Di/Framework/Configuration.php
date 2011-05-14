@@ -108,26 +108,24 @@ class Configuration
 
     public function getIntrospectors()
     {
-        return $this->introspectors;
+        return array_keys($this->introspectors);
     }
     
     public function setIntrospectors(array $introspectors)
     {
-        $clean = array();
+        $this->introspectors = array();
         foreach ($introspectors as $name => $value) {
             if (is_int($name)) {
-                $clean[] = $value;
+                $this->introspectors[$value] = array();
             } elseif (is_string($name)) {
-                $clean[] = $name;
-                $this->introspectorConfigs[$name] = $value;
+                $this->introspectors[$name] = $value;
             }
         }
-        $this->introspectors = $clean;
     }
     
-    public function getIntrospectionConfiguration()
+    public function getIntrospectionConfiguration($name)
     {
-        return array();
+        return ((array_key_exists($name, $this->introspectors)) ? $this->introspectors[$name] : array());
     }
     
     public function setObjectConfigurations($objectConfigurations)

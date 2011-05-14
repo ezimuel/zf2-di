@@ -13,7 +13,10 @@ return array(
     // what inspectors to use
     'introspectors' => array(
         'constructorInjection',
-        'setterInjection',
+        'interfaceInjection' => array(
+            'My\DbAdapterAwareInterface',
+            'My\MapperAwareInterface'
+            )
         ),
 
     // what object configurations and aliases to use

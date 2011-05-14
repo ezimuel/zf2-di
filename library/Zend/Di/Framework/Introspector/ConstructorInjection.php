@@ -33,13 +33,13 @@ class ConstructorInjection implements \Zend\Di\Framework\Introspector
 
             try {
                 $refClass = new \ReflectionClass($type);
-                echo 'Reflecting ' . $type . PHP_EOL;
+                //echo 'Reflecting ' . $type . PHP_EOL;
                 if ($refClass->hasMethod('__construct')) {
                     
                     $refConstructor = $refClass->getMethod('__construct');
                     if ($refParameters = $refConstructor->getParameters()) {
                         
-                        echo '    Found injectable __construct ' . $type . PHP_EOL;
+                        //echo '    Found injectable __construct ' . $type . PHP_EOL;
                         
                         if ($this->managedDefinitions->hasDefinition($type)) {
                             $definition = $this->managedDefinitions->getDefinition($type);
@@ -53,11 +53,9 @@ class ConstructorInjection implements \Zend\Di\Framework\Introspector
                         foreach ($refParameters as $refParam) {
                             $paramMaps[$refParam->getName()] = $refParam->getPosition();
                             
-                            //echo $refParam;
-                            
                             if ($refTypeClass = $refParam->getClass()) {
                                                             
-                                echo '      Param type: ' . $refTypeClass->getName() . PHP_EOL;
+                                //echo '      Param type: ' . $refTypeClass->getName() . PHP_EOL;
                                 $params[$refParam->getName()] = new \Zend\Di\Reference($refTypeClass->getName());
                             }
                         }

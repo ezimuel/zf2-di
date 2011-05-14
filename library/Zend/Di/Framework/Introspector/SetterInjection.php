@@ -41,24 +41,6 @@ class SetterInjection implements \Zend\Di\Framework\Introspector
                         
                         if ($this->managedDefinitions->hasDefinition($type)) {
                             $definition = $this->managedDefinitions->getDefinition($type);
-                            
-                            
-                            // resolve what happens if the method already exists
-                            
-//                            $methodCalls = $definition->getMethodCalls();
-//                            $foundMethod = false;
-//                            foreach ($methodCalls as $methodCall) {
-//                                if ($methodCalls->key() === $refMethod->getName()) {
-//                                    $foundMethod = $methodCall;
-//                                }
-//                            }
-//                            unset($methodCalls);
-//                            if ($foundMethod) {
-//                                $method = $foundMethod;
-//                            } else {
-//                                $method = new \Zend\Di\Method($name, $args)
-//                            }
-
                         } else {
                             $definition = new \Zend\Di\Framework\DefinitionProxy(new \Zend\Di\Definition($type));
                             $this->managedDefinitions->addDefinition($definition);
@@ -67,11 +49,8 @@ class SetterInjection implements \Zend\Di\Framework\Introspector
                         if ($refParameters = $refMethod->getParameters()) {
                             $args = array();
                             foreach ($refParameters as $refParam) {
-                                $paramMaps[$refParam->getName()] = $refParam->getPosition();
-                                
                                 if ($refTypeClass = $refParam->getClass()) {
-                                                                
-                                    echo '      Param type: ' . $refTypeClass->getName() . PHP_EOL;
+                                    //echo '      Param type: ' . $refTypeClass->getName() . PHP_EOL;
                                     $args[] = new \Zend\Di\Reference($refTypeClass->getName());
                                 }
                             }

@@ -6,7 +6,7 @@ of a simplified modeling example: repository classes that
 manage entities, these repository classes consume mappers which
 in turn consume a database adapter, which is seeded by some
 scalar values that are user provided.  These examples use
-constructor injection as their method of dependency injection.
+*setter* injection as their method of dependency injection.
 
 First, you'll need to run the development time tool zf-di.php
 with the appropriate configuration.
